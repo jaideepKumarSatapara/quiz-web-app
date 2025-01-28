@@ -1,0 +1,99 @@
+name: Deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  vercel:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v2.4.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4.0.2
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Lint
+        run: pnpm lint
+      # Initializes a deployment status for preview environments.
+      # Runs for all branches except main.
+      - name: Start Deployment
+        uses: bobheadxi/deployments@v1.5.0
+        id: deployment-preview
+        with:
+          step: start
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          env: Preview
+      # Deploys the app to Vercel as a preview deployment.
+      # Runs for all branches except main.
+      - name: Deploy to Preview
+        id: vercel-action-preview
+        if: github.ref != 'refs/heads/main'
+        uses: amondnet/vercel-action@v25.2.0
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      # Deploys the app to Vercel in production mode.
+      # Runs only when changes are pushed to the main branch.
+      - name: Deploy to Production
+        uses: amondnet/vercel-action@v25.2.0
+        id: vercel-action-production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          github-comment: false
+          vercel-args: "--prod"
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      # Finalizes the deployment status with the URL of the deployed preview.
+      # Runs for all branches except main.
+      - name: Update Deployment Status
+        uses: bobheadxi/deployments@v1.5.0
+        if: github.ref != 'refs/heads/main'
+        with:
+          step: finish
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment-preview.outputs.deployment_id }}
+          env_url: ${{ steps.vercel-action-preview.outputs.preview-url }}
+          env: ${{ steps.deployment-preview.outputs.env }}
