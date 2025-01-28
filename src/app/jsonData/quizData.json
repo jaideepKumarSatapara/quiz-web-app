@@ -1,0 +1,160 @@
+{
+  "quizzes": [
+    {
+      "id": 1,
+      "title": "Discover Your Manga Persona",
+      "questions": [
+        {
+          "id": "1",
+          "question": "Which manga genre do you enjoy the most?",
+          "options": {
+            "a": {
+              "id": "a",
+              "answer": "Shonen (Action/Adventure)",
+              "icon": "/images/1.jpg",
+              "score": 2
+            },
+            "b": {
+              "id": "b",
+              "answer": "Shojo (Romance/Drama)",
+               "icon": "/images/2.jpg",
+               "score": 4
+            },
+            "c": {
+              "id": "c",
+              "answer": "Seinen (Adult/Complex Themes)",
+               "icon": "/images/3.jpg",
+               "score": 1
+            },
+            "d": {
+              "id": "d",
+              "answer": "Josei (Slice of Life/Realism)",
+               "icon": "/images/4.jpg",
+               "score": 3
+            }
+          }
+        },
+        {
+          "id": "2",
+          "question": "What motivates your favorite manga characters?",
+          "options": {
+            "a": {
+              "id": "a",
+              "answer": "To protect their friends",
+               "icon": "/images/5.jpg",
+               "score": 4
+            },
+            "b": {
+              "id": "b",
+              "answer": "To achieve their dreams",
+               "icon": "/images/6.jpg",
+               "score": 2
+            },
+            "c": {
+              "id": "c",
+              "answer": "To seek revenge",
+               "icon": "/images/1.jpg",
+               "score": 1
+            },
+            "d": {
+              "id": "d",
+              "answer": "To uncover the truth",
+               "icon": "/images/2.jpg",
+               "score": 3
+            }
+          }
+        },
+        {
+          "id": "3",
+          "question": "How do you prefer to experience a story?",
+          "options": {
+            "a": {
+              "id": "a",
+              "answer": "Through epic battles and action scenes",
+               "icon": "/images/3.jpg",
+               "score": 3
+            },
+            "b": {
+              "id": "b",
+              "answer": "Through heartfelt relationships",
+               "icon": "/images/4.jpg",
+               "score": 4
+            },
+            "c": {
+              "id": "c",
+              "answer": "Through philosophical dilemmas",
+               "icon": "/images/5.jpg",
+               "score": 1
+            },
+            "d": {
+              "id": "d",
+              "answer": "Through everyday adventures",
+               "icon": "/images/6.jpg",
+               "score": 2
+            }
+          }
+        },
+        {
+          "id": "4",
+          "question": "Which type of manga art style do you prefer?",
+          "options": {
+            "a": {
+              "id": "a",
+              "answer": "Dynamic and detailed",
+               "icon": "/images/1.jpg",
+               "score": 4
+            },
+            "b": {
+              "id": "b",
+              "answer": "Cute and colorful",
+               "icon": "/images/2.jpg",
+               "score": 2
+            },
+            "c": {
+              "id": "c",
+              "answer": "Dark and gritty",
+               "icon": "/images/3.jpg",
+               "score": 1
+            },
+            "d": {
+              "id": "d",
+              "answer": "Stylized and abstract",
+               "icon": "/images/4.jpg",
+               "score": 3
+            }
+          }
+        },
+        {
+          "id": "5",
+          "question": "If you could have any ability from a manga, which would it be?",
+          "options": {
+            "a": {
+              "id": "a",
+              "answer": "Super strength",
+               "icon": "/images/5.jpg",
+               "score": 2
+            },
+            "b": {
+              "id": "b",
+              "answer": "Time manipulation",
+               "icon": "/images/6.jpg",
+               "score": 4
+            },
+            "c": {
+              "id": "c",
+              "answer": "Telepathy",
+               "icon": "/images/1.jpg",
+               "score": 3
+            },
+            "d": {
+              "id": "d",
+              "answer": "Shape-shifting",
+               "icon": "/images/2.jpg",
+               "score": 1
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
