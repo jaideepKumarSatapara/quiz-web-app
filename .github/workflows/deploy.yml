@@ -1,8 +1,12 @@
 name: Deployment
 
 on:
+  # This workflow triggers on pushes to all branches to run tests, linting, and builds,
+  # but deployment to Vercel will only happen for the `main` branch (production) or
+  # pull requests targeting the `main` branch (preview).
   push:
-    branches: [main]
+    # branches: [main]
+    branches: ["*"] # this includes all branches
   pull_request:
     branches: [main]
 
