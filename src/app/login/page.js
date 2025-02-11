@@ -11,6 +11,7 @@ export default function Login() {
                 <li>A Graph will be generated on the score obtained in the quiz</li>
                 <li> Based on score a trait will be assigned to you.</li>
             </ul>
+            <div> Hellow Viewers!</div>
         </>
     )
 }
